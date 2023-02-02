@@ -34,14 +34,14 @@ const userController = {
             if (err) {
                 res.json(err);
             } else {
-                if (data.length > 0) {
-                    bcrypt.compare(req.body.password, data[0].password, (err, result) => {
+                if (results.length > 0) {
+                    bcrypt.compare(req.body.password, results[0].password, (err, result) => {
                         if (err) {
                             res.json(err);
                         } else {
                             if (result) {
-                                const token = generateToken({ id: data[0].id });
-                                user.setToken(data[0].id, { refresh_token: token.refreshToken }, (err, tokenData) => {
+                                const token = generateToken({ id: results[0].id });
+                                user.setToken(results[0].id, { refresh_token: token.refreshToken }, (err, tokenData) => {
                                     if (err) {
                                         res.json(err);
                                     } else {
