@@ -7,11 +7,11 @@ const saltRounds = 10;
 
 const userController = {
     getAll: (req, res) => {
-        user.getAll((err, data) => {
+        user.getAll((err, result) => {
             if (err) {
                 res.json(err);
             } else {
-                res.status(200).json(data);
+                res.status(200).json(result);
             }
         });
     },
@@ -30,7 +30,7 @@ const userController = {
         });
     },
     login: (req, res) => {
-        user.checkLogin(req.body.email, (err, data) => {
+        user.checkLogin(req.body.email, (err, results) => {
             if (err) {
                 res.json(err);
             } else {
@@ -60,9 +60,9 @@ const userController = {
     refreshToken: (req, res) => {
         const refreshToken = req.body.refreshToken;
         if (!refreshToken) {
-            return res.status(401).json({ message: "Refresh token is required" });
+            return res.status(401).json({ "message": "Unprovided token" });
         } else {
-            user.checkToken(refreshToken, (err, data) => {
+            user.checkToken(refreshToken, (err, results) => {
                 if (err) {
                     res.json(err);
                 } else {
@@ -77,7 +77,7 @@ const userController = {
                             }
                         })
                     } catch (err) {
-                        res.status(403).json({ message: err });
+                        res.status(403).json({ "message": "Unexcepted token" });
                     }
                 }
             });
